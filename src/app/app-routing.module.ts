@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'teams', loadChildren: './teams/teams.module#TeamsPageModule', canActivate: [AuthGuardService] },
   { path: 'projects', loadChildren: './projects/projects.module#ProjectsPageModule', canActivate: [AuthGuardService] },
   { path: 'proyects', loadChildren: './proyects/proyects.module#ProyectsPageModule' },
-  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuardService] }
+  { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule', canActivate: [AuthGuardService] },  { path: 'modal-team', loadChildren: './teams/modal-team/modal-team.module#ModalTeamPageModule' }
+
 ];
 
 @NgModule({

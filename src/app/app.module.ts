@@ -11,7 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthGuardService } from './guards/auth-guard.service';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from './guards/session.service';
-
+import { Dialogs } from '@ionic-native/dialogs/ngx';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -29,6 +29,7 @@ import { SessionService } from './guards/session.service';
     SessionService,
     StatusBar,
     SplashScreen,
+    Dialogs,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
