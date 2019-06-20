@@ -1,5 +1,7 @@
 {
   "name": "ExpoKinal",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
