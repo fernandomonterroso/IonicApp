@@ -54,6 +54,7 @@ export class LoginPage implements OnInit {
             localStorage.setItem('image', res.foundUser.image)
             localStorage.setItem('token', res.token)
             this.Loader('Cargando...', 2500);
+            
             this.router.navigate(['/home'])
           })
         }

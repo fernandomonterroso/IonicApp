@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar color="primary">
       <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-    <ion-title>Teams</ion-title>
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="cerrar()" >Cerrar</ion-button>
+      </ion-buttons>
+      <ion-title>Teams</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -23,9 +26,38 @@
       </ion-item>
 
 
-      <ion-fab vertical="center" horizontal="end" slot="fixed" (click)="Dialog()">
+      <ion-fab vertical="center" horizontal="end" slot="fixed" (click)="ModalCreate()">
           <ion-fab-button>
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-fab>
+
+
+        <ion-card-content>
+            
+            <br/>
+      
+            
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input type="name" name="name" #name="ngModel" [(ngModel)]="modelTeam.name" class="form-control" id="name"  placeholder="Enter Nombre"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">team Manager</ion-label>
+              <ion-input type="text" [(ngModel)]="teamManager" name="teamManager"></ion-input>
+            </ion-item>
+              <ion-item>
+                <ion-label position="floating">integrants</ion-label>
+                <ion-input type="integrants" [(ngModel)]="integrants" name="integrants"></ion-input>
+              </ion-item>
+       
+              <br/>
+              <ion-button expand="full" shape="round" type="submit" color="primary" (click)="addTeam()">
+                Create user
+                <ion-icon slot="end" name="contact"></ion-icon>
+              </ion-button>
+      
+          </ion-card-content>
+        
+
 </ion-content>
