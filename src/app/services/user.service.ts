@@ -6,7 +6,10 @@ import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class UserService {
+  public token;
   endpoint:any = environment.endpoint;
 
   httpOptions = {
@@ -24,6 +27,7 @@ export class UserService {
     let params = JSON.stringify(user)
     return this.http.post(this.endpoint + 'api/v1/users/login', params, this.httpOptions).pipe(
       map(this.extractData)
+      
     )
   }
 
@@ -33,4 +37,10 @@ export class UserService {
       map(this.extractData)
     )
   }
+
+  public getToken(){
+    return localStorage.getItem('token')
+  }
+
+  
 }
