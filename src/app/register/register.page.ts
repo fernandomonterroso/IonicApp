@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { ToastController } from '@ionic/angular';
-
+import {NavController, NavParams,ModalController} from 'ionic-angular';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',

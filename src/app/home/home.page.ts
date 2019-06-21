@@ -18,4 +18,8 @@ export class HomePage {
     this.router.navigate(['/profile'])
   }
 
+  cerrar(){
+    localStorage.clear()
+    this.router.navigate(['/login'])
+  }
 }
