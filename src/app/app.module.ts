@@ -12,9 +12,10 @@ import { AuthGuardService } from './guards/auth-guard.service';
 import { FormsModule } from '@angular/forms';
 import { SessionService } from './guards/session.service';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
+import {ModalTeamPage } from '../app/modal-team/modal-team.page'
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, ModalTeamPage],
+  entryComponents: [ ModalTeamPage],
   imports: [
     BrowserModule,
     IonicModule.forRoot({

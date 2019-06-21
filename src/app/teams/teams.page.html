@@ -26,12 +26,14 @@
       </ion-item>
 
 
-      <ion-fab vertical="center" horizontal="end" slot="fixed" (click)="ModalCreate()">
+      <ion-fab vertical="center" horizontal="end" slot="fixed" (click)="modalCreate()">
           <ion-fab-button>
             <ion-icon name="add"></ion-icon>
           </ion-fab-button>
         </ion-fab>
 
+
+        <form #FormAddContacto = "ngForm" (ngSubmit)="agregarTeam()">
 
         <ion-card-content>
             
@@ -44,20 +46,20 @@
             </ion-item>
             <ion-item>
               <ion-label position="floating">team Manager</ion-label>
-              <ion-input type="text" [(ngModel)]="teamManager" name="teamManager"></ion-input>
+              <ion-input type="teamManager" name="teamManager" #teamManager="ngModel" [(ngModel)]="modelTeam.teamManager" class="form-control" id="teamManager"  placeholder="Enter teamManager"></ion-input>
             </ion-item>
               <ion-item>
                 <ion-label position="floating">integrants</ion-label>
-                <ion-input type="integrants" [(ngModel)]="integrants" name="integrants"></ion-input>
+                <ion-input type="integrants" name="integrants" #integrants="ngModel" [(ngModel)]="modelTeam.integrants" class="form-control" id="integrants"  placeholder="Enter Nombre"></ion-input>
               </ion-item>
        
               <br/>
-              <ion-button expand="full" shape="round" type="submit" color="primary" (click)="addTeam()">
+              <ion-button expand="full" shape="round" type="submit" color="primary" >
                 Create user
                 <ion-icon slot="end" name="contact"></ion-icon>
               </ion-button>
       
           </ion-card-content>
-        
+        </form>
 
 </ion-content>

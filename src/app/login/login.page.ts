@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   email:string = "";
   password:string = "";
+  public identity;
   constructor(private toastCtrl: ToastController, public userService: UserService,
     private alertCtrl: AlertController, private router: Router, private loadingCtrl: LoadingController,
     private navCtrl: NavController) { }
@@ -53,6 +54,8 @@ export class LoginPage implements OnInit {
             localStorage.setItem('username', res.foundUser.username)
             localStorage.setItem('image', res.foundUser.image)
             localStorage.setItem('token', res.token)
+            this.identity = res.foundUser;
+            localStorage.setItem('identity', JSON.stringify(this.identity));
             this.Loader('Cargando...', 2500);
             
             this.router.navigate(['/home'])
