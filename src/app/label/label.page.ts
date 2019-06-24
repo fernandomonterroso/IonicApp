@@ -1,9 +1,10 @@
+import { Refresher } from 'ionic-angular';
 import { LabelService } from './../services/label.service';
 import { Label } from './../models/label.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, LoadingController } from '@ionic/angular';
 import { CreateLabelComponent, EditLabelComponent } from '../modals/index';
 @Component({
 	selector: 'app-label',
@@ -21,7 +22,7 @@ import { CreateLabelComponent, EditLabelComponent } from '../modals/index';
 export class LabelPage implements OnInit {
 	public token;
 	public labels: Label[];
-	constructor(private toastCtrl: ToastController, private modalCtrl: ModalController, private router: Router, private _userService: UserService, private _labelService: LabelService) {
+	constructor(private toastCtrl: ToastController, private modalCtrl: ModalController, private loadingCtrl: LoadingController, private router: Router, private _userService: UserService, private _labelService: LabelService) {
 		this.token = _userService.getToken();
 	}
 
@@ -57,18 +58,53 @@ export class LabelPage implements OnInit {
 		const modal = await this.modalCtrl.create({
 			component: CreateLabelComponent
 		});
-
-		return await modal.present();
+		await modal.present();
+		const data = await modal.onDidDismiss();
+		if (data.data !== undefined) this.getLabels();
 	}
 
-	async editLabel(id) {
+	async editLabel(label) {
 		let modal = await this.modalCtrl.create({
 			component: EditLabelComponent,
 			componentProps:
 				{
-					id: id
+					label: label
 				}
 		});
-		return await modal.present();
+		await modal.present();
+		const data = await modal.onDidDismiss();
+		if (data.data !== undefined) this.getLabels();
+	}
+
+	async deleteLabel(id) {
+		this._labelService.deleteLabel(id, this.token).subscribe(async res => {
+			if (res.message) {
+				let toast = await this.toastCtrl.create({
+					message: res.message,
+					duration: 2500,
+					closeButtonText: 'Cerrar',
+					showCloseButton: true
+				});
+				this.Loader('Cargando...', 2500);
+				await toast.present().then(() => {
+					this.getLabels();
+				});
+			}
+		});
+	}
+
+	async Loader(message: string, duration: number) {
+		const loading = await this.loadingCtrl.create({
+			message: message,
+			duration: duration
+		});
+		await loading.present();
+	}
+
+	doRefresh(e) {
+		this.getLabels();
+		setTimeout(() => {
+			e.target.complete();
+		}, 2500);
 	}
 }
