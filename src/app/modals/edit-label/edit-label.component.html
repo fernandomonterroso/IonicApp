@@ -20,6 +20,10 @@
       placeholder="Ingrese un color para la etiqueta" required="true"></ion-input>
   </ion-item>
 
+  <ion-item>
+    <input shape="round" [(colorPicker)]="label.color" [style.background]="label.color" cpOutputFormat="hex">
+  </ion-item>
+
   <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="update()">Editar</ion-button>
   <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="cancel()">Cancelar</ion-button>
 

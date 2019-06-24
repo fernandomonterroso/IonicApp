@@ -16,8 +16,12 @@
 
   <ion-item>
     <ion-label position="floating">Color de la etiqueta</ion-label>
-    <ion-input name="color" [(ngModel)]="label.color" shape="round" clearInput
-      placeholder="Ingrese un color para la etiqueta" required="true"></ion-input>
+    <ion-input name="color" readonly [(ngModel)]="label.color" shape="round"
+      placeholder="Elija un color para la etiqueta" required="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <input shape="round" [(colorPicker)]="label.color" [style.background]="label.color" cpOutputFormat="hex">
   </ion-item>
 
   <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="create()">Crear</ion-button>

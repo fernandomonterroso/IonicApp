@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { SessionService } from './guards/session.service';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 
+import { ColorPickerModule } from 'ngx-color-picker';
 import { CreateLabelComponent, EditLabelComponent } from './modals/index';
 @NgModule({
 	declarations:
@@ -34,7 +35,8 @@ import { CreateLabelComponent, EditLabelComponent } from './modals/index';
 			}),
 			AppRoutingModule,
 			HttpClientModule,
-			FormsModule
+			FormsModule,
+			ColorPickerModule
 		],
 	providers:
 		[

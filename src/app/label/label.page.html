@@ -14,26 +14,28 @@
 </ion-header>
 
 <ion-content>
+
   <ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Jale para recargar" refreshingSpinner="bubbles"
       refreshingText="Cargando...">
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-list>
+  <ion-list><br>
 
     <ion-item-sliding *ngFor="let l of labels">
 
       <ion-item>
+        <ion-fab-button [ngStyle]="{'background': l.color}" color="transparent" size="small" slot="start"
+          disabled="true"></ion-fab-button>
         <ion-label>
-          <!-- <ion-badge slot="start" color="{{l.color}}">01</ion-badge> -->
           <h2>{{l.name}}</h2>
         </ion-label>
-        <ion-button (click)="editLabel(l)" fill="outline" slot="end">Edit</ion-button>
+        <ion-button (click)="editLabel(l)" fill="outline" slot="end">Editar</ion-button>
       </ion-item>
 
       <ion-item-options side="end">
-        <button ion-button color="secondary" (click)="deleteLabel(l._id)">
+        <button ion-button color="secondary" (click)="confirmDelete(l._id)">
           <ion-icon name="trash"></ion-icon>
           Borrar
         </button>
@@ -41,7 +43,6 @@
 
     </ion-item-sliding>
   </ion-list>
-
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button color="secondary">

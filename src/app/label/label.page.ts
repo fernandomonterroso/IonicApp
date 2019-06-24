@@ -1,10 +1,9 @@
-import { Refresher } from 'ionic-angular';
 import { LabelService } from './../services/label.service';
 import { Label } from './../models/label.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import { ToastController, ModalController, LoadingController } from '@ionic/angular';
+import { ToastController, ModalController, LoadingController, AlertController } from '@ionic/angular';
 import { CreateLabelComponent, EditLabelComponent } from '../modals/index';
 @Component({
 	selector: 'app-label',
@@ -22,7 +21,7 @@ import { CreateLabelComponent, EditLabelComponent } from '../modals/index';
 export class LabelPage implements OnInit {
 	public token;
 	public labels: Label[];
-	constructor(private toastCtrl: ToastController, private modalCtrl: ModalController, private loadingCtrl: LoadingController, private router: Router, private _userService: UserService, private _labelService: LabelService) {
+	constructor(private toastCtrl: ToastController, private modalCtrl: ModalController, private loadingCtrl: LoadingController, private alertCtrl: AlertController, private router: Router, private _userService: UserService, private _labelService: LabelService) {
 		this.token = _userService.getToken();
 	}
 
@@ -85,7 +84,7 @@ export class LabelPage implements OnInit {
 					closeButtonText: 'Cerrar',
 					showCloseButton: true
 				});
-				this.Loader('Cargando...', 2500);
+				this.Loader('Cargando...', 1500);
 				await toast.present().then(() => {
 					this.getLabels();
 				});
@@ -99,6 +98,29 @@ export class LabelPage implements OnInit {
 			duration: duration
 		});
 		await loading.present();
+	}
+
+	async confirmDelete(id) {
+		const alert = await this.alertCtrl.create({
+			header: 'Eliminar etiqueta',
+			message: '¿Está seguro de eliminar la etiqueta?',
+			buttons:
+				[
+					{
+						text: 'Cancelar',
+						role: 'cancel',
+						cssClass: 'secondary',
+					},
+					{
+						text: 'Si',
+						handler:
+							() => {
+								this.deleteLabel(id);
+							}
+					}
+				]
+		});
+		await alert.present();
 	}
 
 	doRefresh(e) {
