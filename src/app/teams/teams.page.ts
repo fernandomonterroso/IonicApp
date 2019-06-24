@@ -5,7 +5,6 @@ import { TeamService } from '../services/team.service';
 import { ToastController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
 import { ModalController } from 'ionic-angular';
-import { ModalTeamPage } from '../modal-team/modal-team.page';
 @Component({
 	selector: 'app-teams',
 	templateUrl: './teams.page.html',
@@ -66,7 +65,7 @@ export class TeamsPage implements OnInit {
 	}
 
 	async modalCreate() {
-		let modal = this._modalController.create(ModalTeamPage);
+		// let modal = this._modalController.create(ModalTeamPage);
 	}
 
 	async agregarTeam() {

@@ -55,14 +55,6 @@ const routes: Routes = [
 			]
 	},
 	{
-		path: 'modal-team',
-		loadChildren: './modal-team/modal-team.module#ModalTeamPageModule',
-		canActivate:
-			[
-				AuthGuardService
-			]
-	},
-	{
 		path: 'label',
 		loadChildren: './label/label.module#LabelPageModule',
 		canActivate:
