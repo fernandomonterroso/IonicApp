@@ -2,9 +2,10 @@ import { Team } from './../models/team.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamService } from '../services/team.service';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ModalController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
-import { ModalController } from 'ionic-angular';
+import { CreateModalTeamComponent, EditModalTeamComponent } from '../modals/index';
+
 @Component({
 	selector: 'app-teams',
 	templateUrl: './teams.page.html',
@@ -23,21 +24,24 @@ export class TeamsPage implements OnInit {
 	public identity;
 	public status;
 	public modelTeam: Team;
-	public limpiarDatos: Team;
-	constructor(private router: Router, private _teamService: TeamService, private toastCtrl: ToastController, private _userService: UserService, private _modalController: ModalController) {
+	constructor(private router: Router, private _teamService: TeamService,
+				 private toastCtrl: ToastController, private modalCtrl: ModalController,
+				 private _userService: UserService, ) {
 		this.token = this._userService.getToken();
-		this.modelTeam = new Team(
-			'',
-			[
-				''
-			],
-			[
-				{ users: '', rol: '' }
-			]
-		);
+		this.modelTeam = new Team('',[''],[{ users: '', rol: '' }]);
 	}
 
 	ngOnInit() {}
+
+
+	async createTeam() {
+		const modal = await this.modalCtrl.create({
+			component: CreateModalTeamComponent
+		});
+		await modal.present();
+		const data = await modal.onDidDismiss();
+		// if (data.data !== undefined) this.getTeams();
+	}
 
 	public getToken() {
 		this.token = localStorage.getItem('token');
@@ -70,6 +74,7 @@ export class TeamsPage implements OnInit {
 
 	async agregarTeam() {
 		this._teamService.AddTeam(this.token, this.modelTeam).subscribe(
+			
 			async res => {
 				if (res.team) {
 					let toast = await this.toastCtrl.create({
