@@ -5,7 +5,7 @@ export class Team {
 		public description: string,
 		public integrants: [
 			{
-				users: string;
+				user: string;
 				rol: string;
 			}
 		]

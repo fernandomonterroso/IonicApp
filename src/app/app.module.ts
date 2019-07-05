@@ -14,7 +14,8 @@ import { SessionService } from './guards/session.service';
 import { Dialogs } from '@ionic-native/dialogs/ngx';
 
 import { ColorPickerModule } from 'ngx-color-picker';
-import { CreateLabelComponent, EditLabelComponent, CreateTeamComponent, EditTeamComponent } from './modals/index';
+import { CreateLabelComponent, EditLabelComponent, CreateTeamComponent, EditTeamComponent, CreateProjectComponent, EditProjectComponent } from './modals/index';
+
 @NgModule({
 	declarations:
 		[
@@ -22,14 +23,18 @@ import { CreateLabelComponent, EditLabelComponent, CreateTeamComponent, EditTeam
 			CreateLabelComponent,
 			EditLabelComponent,
 			CreateTeamComponent,
-			EditTeamComponent
+			EditTeamComponent,
+			CreateProjectComponent,
+			EditProjectComponent
 		],
 	entryComponents:
 		[
 			CreateLabelComponent,
 			EditLabelComponent,
 			CreateTeamComponent,
-			EditTeamComponent
+			EditTeamComponent,
+			CreateProjectComponent,
+			EditProjectComponent
 		],
 	imports:
 		[
