@@ -1,7 +1,8 @@
 export class Team {
 	constructor(
+		public _id: string,
 		public name: string,
-		public teamManager: [string],
+		public description: string,
 		public integrants: [
 			{
 				users: string;

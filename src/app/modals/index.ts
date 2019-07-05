@@ -1,4 +1,4 @@
 export { EditLabelComponent } from './edit-label/edit-label.component';
 export { CreateLabelComponent } from './create-label/create-label.component';
-export { CreateModalTeamComponent} from '../modals/create-modal-team/create-modal-team.component';
-export { EditModalTeamComponent} from '../modals/edit-modal-team/edit-modal-team.component'
+export { CreateTeamComponent } from './create-team/create-team.component';
+export { EditTeamComponent } from './edit-team/edit-team.component';
