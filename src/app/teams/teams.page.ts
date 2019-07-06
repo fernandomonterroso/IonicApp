@@ -24,15 +24,7 @@ export class TeamsPage implements OnInit {
 	public identity;
 	public status;
 	public teams: Team;
-	constructor(
-		private router: Router,
-		private _teamService: TeamService,
-		private toastCtrl: ToastController,
-		private modalCtrl: ModalController,
-		private alertCtrl: AlertController,
-		private loadingCtrl: LoadingController,
-		private _userService: UserService
-	) {
+	constructor(private router: Router, private _teamService: TeamService, private toastCtrl: ToastController, private modalCtrl: ModalController, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _userService: UserService) {
 		this.token = this._userService.getToken();
 	}
 
@@ -89,7 +81,7 @@ export class TeamsPage implements OnInit {
 	async deleteTeam(id) {
 		console.log(id);
 		this._teamService.deleteTeam(id, this.token).subscribe(async res => {
-			if (res.message) {
+			if (res.team) {
 				let toast = await this.toastCtrl.create({
 					message: res.message,
 					duration: 2500,

@@ -20,11 +20,6 @@ export class TeamService {
 		return res || [] || {};
 	}
 
-	getTeams(token): Observable<any> {
-		let headers = this.headers.set('Authorization', token);
-		return this._http.get(this.endpoint + 'teams/', { headers: headers }).pipe(map(this.extractData));
-	}
-
 	public editTeam(team: Team, token): Observable<any> {
 		let params = JSON.stringify(team);
 		let headers = this.headers.set('Authorization', token);
@@ -40,5 +35,15 @@ export class TeamService {
 		let headers = this.headers.set('Authorization', token);
 		let params = JSON.stringify(team);
 		return this._http.post(this.endpoint + 'teams/', params, { headers: headers }).pipe(map(this.extractData));
+	}
+
+	public getTeams(token): Observable<any> {
+		let headers = this.headers.set('Authorization', token);
+		return this._http.get(this.endpoint + 'teams/', { headers: headers }).pipe(map(this.extractData));
+	}
+
+	public getUserTeams(token): Observable<any> {
+		let headers = this.headers.set('Authorization', token);
+		return this._http.get(this.endpoint + 'teams/user', { headers: headers }).pipe(map(this.extractData));
 	}
 }
