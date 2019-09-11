@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Agregar Proyecto
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">Nombre del proyecto</ion-label>
+    <ion-input name="name" [(ngModel)]="project.name" shape="round" clearInput placeholder="Ingrese un nombre para el proyecto"
+      required="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descripcion del proyecto</ion-label>
+    <ion-input name="description" [(ngModel)]="project.description" shape="round" clearInput
+      placeholder="Ingrese una descripcion para el equipo" required="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Equipo del proyecto</ion-label>
+    <ion-select placeholder="Seleccione un equipo" name="developerTeam" [(ngModel)]="project.developerTeam">
+      <ion-select-option *ngFor="let t of teams" value="{{t._id}}" >{{t.name}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="create()">Crear
+  </ion-button>
+  <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="cancel()">Cancelar
+  </ion-button>
+</ion-content>

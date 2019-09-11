@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Editar equipo
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item>
+    <ion-label position="floating">Nombre del equipo</ion-label>
+    <ion-input name="description" [(ngModel)]="team.name" shape="round" clearInput
+      placeholder="Ingrese un nombre para el equipo" required="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Descripcion del equipo</ion-label>
+    <ion-input name="description" [(ngModel)]="team.description" shape="round" clearInput
+      placeholder="Ingrese una Descripcion para el equipo" required="true"></ion-input>
+  </ion-item>
+
+  <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="create()">Crear
+  </ion-button>
+  <ion-button color="secondary" expand="block" shape="round" type="submit" fill="outline" (click)="cancel()">Cancelar
+  </ion-button>
+
+</ion-content>

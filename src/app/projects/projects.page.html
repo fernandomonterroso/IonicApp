@@ -1,24 +1,46 @@
 <ion-header>
   <ion-toolbar color="primary">
-      <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
-        </ion-buttons>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Projects</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-    <ion-searchbar placeholder="Search projects" showCancelButton cancelButtonText="Cancel" (ionInput)="Search($event)" (ionCancel)="InitElements()"></ion-searchbar>
+<ion-refresher slot="fixed" pullFactor="0.5" pullMin="100" pullMax="200" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="Jale para recargar" refreshingSpinner="bubbles"
+    refreshingText="Cargando...">
+  </ion-refresher-content>
+</ion-refresher>
 
-    <ion-item *ngFor="let project of projects">
-        <ion-thumbnail slot="start">
-          <img src="{{project.image}}">
-        </ion-thumbnail>
-        <ion-label>
-          <h2>{{project.name}}</h2>
-          <p>{{project.description}}</p>
-        </ion-label>
-        <ion-button fill="outline" slot="end">View</ion-button>
-      </ion-item>
+<ion-list><br>
+
+  <ion-item-sliding *ngFor="let p of projects">
+
+
+    <ion-item>
+      <ion-label>
+        <h2>{{p.name}}</h2>
+        <p>{{p.description}}</p>
+      </ion-label>
+      <ion-button (click)="editProject(p)" fill="outline" slot="end">Editar</ion-button>
+    </ion-item>
+
+    <ion-item-options side="end">
+      <button ion-button color="secondary" (click)="confirmDelete(p._id)">
+        <ion-icon name="trash"></ion-icon>
+        Borrar
+      </button>
+    </ion-item-options>
+
+  </ion-item-sliding>
+</ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button color="success">
+        <ion-icon (click)="createProject()" name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
 
 </ion-content>
