@@ -21,13 +21,13 @@ export class LabelService {
 
 	public getLabels(token): Observable<any> {
 		let headers = this.headers.set('Authorization', token);
-		return this._http.get(this.endpoint + 'labels', { headers: headers }).pipe(map(this.extractData));
+		return this._http.get(this.endpoint + 'labels/', { headers: headers }).pipe(map(this.extractData));
 	}
 
 	public createLabel(label: Label, token): Observable<any> {
 		let params = JSON.stringify(label);
 		let headers = this.headers.set('Authorization', token);
-		return this._http.post(this.endpoint + 'labels', params, { headers: headers }).pipe(map(this.extractData));
+		return this._http.post(this.endpoint + 'labels/', params, { headers: headers }).pipe(map(this.extractData));
 	}
 
 	public editLabel(label: Label, token): Observable<any> {

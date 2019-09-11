@@ -2,9 +2,9 @@ import { Team } from './../models/team.model';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TeamService } from '../services/team.service';
-import { ToastController, ModalController } from '@ionic/angular';
+import { ToastController, ModalController, AlertController, LoadingController } from '@ionic/angular';
 import { UserService } from '../services/user.service';
-import { CreateModalTeamComponent, EditModalTeamComponent } from '../modals/index';
+import { CreateTeamComponent, EditTeamComponent } from '../modals/index';
 
 @Component({
 	selector: 'app-teams',
@@ -23,89 +23,114 @@ export class TeamsPage implements OnInit {
 	public token;
 	public identity;
 	public status;
-	public modelTeam: Team;
-	constructor(private router: Router, private _teamService: TeamService,
-				 private toastCtrl: ToastController, private modalCtrl: ModalController,
-				 private _userService: UserService, ) {
+	public teams: Team;
+	constructor(private router: Router, private _teamService: TeamService, private toastCtrl: ToastController, private modalCtrl: ModalController, private alertCtrl: AlertController, private loadingCtrl: LoadingController, private _userService: UserService) {
 		this.token = this._userService.getToken();
-		this.modelTeam = new Team('',[''],[{ users: '', rol: '' }]);
 	}
 
-	ngOnInit() {}
-
-
-	async createTeam() {
-		const modal = await this.modalCtrl.create({
-			component: CreateModalTeamComponent
-		});
-		await modal.present();
-		const data = await modal.onDidDismiss();
-		// if (data.data !== undefined) this.getTeams();
+	ngOnInit() {
+		this.getTeams();
 	}
 
-	public getToken() {
-		this.token = localStorage.getItem('token');
-	}
-
-	ss() {
-		console.log('AAAAAAAAAAAAAAAA');
-		this._teamService.AddTeam(this.token, this.modelTeam).subscribe(
-			response => {
-				console.log('AAAAAAAAAAAAAAAA' + response.team);
-				if (response.team) {
-					// this.getContactos();
-					this.status = 'Ok';
-					this.modelTeam.name = '';
-				}
-			},
-			error => {
-				var errorMessage = <any>error;
-				console.log(errorMessage);
-				if (errorMessage != null) {
-					this.status = 'error';
-				}
-			}
-		);
-	}
-
-	async modalCreate() {
-		// let modal = this._modalController.create(ModalTeamPage);
-	}
-
-	async agregarTeam() {
-		this._teamService.AddTeam(this.token, this.modelTeam).subscribe(
-			
-			async res => {
-				if (res.team) {
-					let toast = await this.toastCtrl.create({
-						message: 'Team successfully stored!',
-						duration: 2500,
-						color: 'dark',
-						closeButtonText: 'Close',
-						showCloseButton: true
-					});
-					await toast.present();
-				}
-			},
-			async error => {
+	getTeams() {
+		this._teamService.getTeams(this.token).subscribe(async res => {
+			if (res.teams) {
+				this.teams = res.teams;
+				console.log(this.teams);
+			} else {
 				let toast = await this.toastCtrl.create({
-					message: error.error.message,
+					message: res.message,
 					duration: 2500,
-					color: 'danger',
 					closeButtonText: 'Close',
 					showCloseButton: true
 				});
 				await toast.present();
 			}
-		);
+		});
 	}
 
-	ModalCreate() {}
-
-	cerrar() {
+	logOut() {
 		localStorage.clear();
 		this.router.navigate([
 			'/login'
 		]);
+	}
+
+	async createTeam() {
+		const modal = await this.modalCtrl.create({
+			component: CreateTeamComponent
+		});
+		await modal.present();
+		const data = await modal.onDidDismiss();
+		if (data.data !== undefined) this.getTeams();
+	}
+
+	async editTeam(team) {
+		let modal = await this.modalCtrl.create({
+			component: EditTeamComponent,
+			componentProps:
+				{
+					team: team
+				}
+		});
+		await modal.present();
+		const data = await modal.onDidDismiss();
+		if (data.data !== undefined) this.getTeams();
+	}
+
+	async deleteTeam(id) {
+		console.log(id);
+		this._teamService.deleteTeam(id, this.token).subscribe(async res => {
+			if (res.team) {
+				let toast = await this.toastCtrl.create({
+					message: res.message,
+					duration: 2500,
+					closeButtonText: 'Cerrar',
+					showCloseButton: true
+				});
+				this.Loader('Cargando...', 1500);
+				await toast.present().then(() => {
+					this.getTeams();
+				});
+			}
+		});
+	}
+
+	async Loader(message: string, duration: number) {
+		const loading = await this.loadingCtrl.create({
+			message: message,
+			duration: duration
+		});
+		await loading.present();
+	}
+
+	async confirmDelete(id) {
+		const alert = await this.alertCtrl.create({
+			header: 'Eliminar equipo',
+			message: '¿Está seguro de eliminar el equipo?',
+			buttons:
+				[
+					{
+						text: 'Cancelar',
+						role: 'cancel',
+						cssClass: 'secondary'
+					},
+					{
+						text: 'Si',
+						handler:
+							() => {
+								this.deleteTeam(id);
+							}
+					}
+				]
+		});
+		await alert.present();
+	}
+
+	doRefresh(e) {
+		this.getTeams();
+		setTimeout(() => {
+			e.target.complete();
+		}, 2500);
 	}
 }

@@ -35,4 +35,8 @@ export class UserService {
 	public getToken() {
 		return localStorage.getItem('token');
 	}
+
+	public getIdentity() {
+		return localStorage.getItem('identity');
+	}
 }
